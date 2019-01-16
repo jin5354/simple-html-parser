@@ -1,0 +1,22 @@
+{
+  "name": "simple-html-parser",
+  "version": "0.0.1",
+  "description": "simple-html-parser",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jin5354/simple-html-parser.git"
+  },
+  "author": "jin5354 <xiaoyanjinx@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jin5354/simple-html-parser/issues"
+  },
+  "homepage": "https://github.com/jin5354/simple-html-parser#readme",
+  "dependencies": {
+    "@types/node": "^10.12.18"
+  }
+}

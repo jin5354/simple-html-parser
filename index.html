@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+</head>
+<body>
+  <p id="button">test</p>
+  <img id="img" src="https://private.daily.weidian.com/daily_resource1119402940-012000000167f8b6fe8b0a250a8c_700_880.jpg">
+
+  <script>
+    var Download = function (domImg, filename) {
+      // 创建隐藏的可下载链接
+      var eleLink = document.createElement('a');
+      eleLink.download = filename;
+      eleLink.style.display = 'none';
+      // 图片转base64地址
+      var canvas = document.createElement('canvas');
+      var context = canvas.getContext('2d');
+      var width = domImg.naturalWidth;
+      var height = domImg.naturalHeight;
+      context.drawImage(domImg, 0, 0);
+      // 如果是PNG图片，则canvas.toDataURL('image/png')
+      eleLink.href = canvas.toDataURL('image/jpeg');
+      // 触发点击
+      document.body.appendChild(eleLink);
+      eleLink.click();
+      // 然后移除
+      document.body.removeChild(eleLink);
+    };
+
+    var $button = document.getElementById('button')
+    //var $img = document.getElementById('img')
+
+    var $img = new Image()
+    $img.src = 'https://private.daily.weidian.com/daily_resource1119402940-012000000167f8b6fe8b0a250a8c_700_880.jpg';
+    //$img.setAttribute("crossOrigin",'Anonymous')
+
+    $button.addEventListener('click', e => {
+      Download($img, 'test')
+    })
+  </script>
+</body>
+</html>
