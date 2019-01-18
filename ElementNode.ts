@@ -1,3 +1,5 @@
+import {NodeList} from './index'
+
 export class ElementNode {
   tag: string
   attrs: Attr[]

@@ -1,10 +1,4 @@
-import {ElementNode} from '../ElementNode'
-import {CommentNode} from '../CommentNode'
-import {TextNode} from '../TextNode'
-
 interface Attr {
-  key: string,
+  name: string,
   value: string
 }
-
-type NodeList = (ElementNode|CommentNode|TextNode)[]
