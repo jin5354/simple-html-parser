@@ -4,7 +4,7 @@
   "description": "simple-html-parser",
   "main": "index.js",
   "scripts": {
-    "test": "node test.js"
+    "test": "ava test/test.js"
   },
   "repository": {
     "type": "git",
@@ -18,5 +18,8 @@
   "homepage": "https://github.com/jin5354/simple-html-parser#readme",
   "dependencies": {
     "@types/node": "^10.12.18"
+  },
+  "devDependencies": {
+    "ava": "^1.1.0"
   }
 }

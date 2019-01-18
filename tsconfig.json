@@ -11,7 +11,8 @@
     ]
   },
   "include": [
-    "index.ts"
+    "index.ts",
+    "test"
   ],
   "files": [
     "types/global.d.ts"
