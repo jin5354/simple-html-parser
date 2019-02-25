@@ -18,7 +18,6 @@ export default function parse(source: string) {
     children: []
   }
   let stack = []
-  let charsMode = false
   let zone: any = null
 
   stack.push(result)
@@ -26,15 +25,13 @@ export default function parse(source: string) {
 
   while(source.length > 0) {
 
-    console.log(source)
-
+    // 判断一些节点，如果都不符合按照文本处理
     // 判断接下来要处理的是不是注释 <!-- 开头
     if(source.startsWith('<!--')) {
-      // 找注释结尾的位置
+      // 找注释结尾的位置，找到了，就提取出注释节点
       let endIndex = source.indexOf('-->')
       if(endIndex !== -1) {
-        // 找到了，提取注释节点
-        console.log(`发现注释节点${source.substring(4, endIndex)}`)
+        // console.log(`发现注释节点${source.substring(4, endIndex)}`)
         zone.children.push(new CommentNode(source.substring(4, endIndex)))
         source = source.substring(endIndex + 3)
         continue
@@ -46,14 +43,14 @@ export default function parse(source: string) {
       let tag = RegExp.lastMatch
       let right = RegExp.rightContext
 
-      console.log(`发现闭合标签11${tag}`)
+      //console.log(`发现闭合标签 ${tag}`)
       let result = tag.match(END_TAG_REG)
       let name = result[1]
 
       if(name === zone.tag) {
         stack.pop()
         zone = stack[stack.length - 1]
-        console.log('闭合，出栈')
+        // console.log('闭合，出栈')
       }else {
         throw new Error('闭合标签对不上，html 语法出错')
       }
@@ -82,7 +79,7 @@ export default function parse(source: string) {
         })
       }
 
-      console.log(`发现元素节点${tag}`)
+      // console.log(`发现元素节点${tag}`)
       let element = new ElementNode(tagName, attrAry, [])
       zone.children.push(element)
       // 如果不是自闭合 tag，入栈
@@ -95,7 +92,7 @@ export default function parse(source: string) {
     }
 
     // 确认为文字模式，开始识别文本节点
-    console.log('开始识别文字')
+    // console.log('开始识别文字')
     let index = source.indexOf('<', 1)
     if(index == -1) {
       if(zone.children[zone.children.length - 1] instanceof TextNode) {
@@ -114,6 +111,5 @@ export default function parse(source: string) {
     }
   }
 
-  console.log('result:', JSON.stringify(result))
   return result.children
 }

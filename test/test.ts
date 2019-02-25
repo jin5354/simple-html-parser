@@ -1,6 +1,5 @@
 import test from 'ava'
-import parse from '../index'
-import {ElementNode} from '../ElementNode'
+import parse from '../src/index'
 
 test('basic nested', t => {
 
