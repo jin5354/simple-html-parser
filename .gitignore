@@ -1,3 +1,4 @@
 .history
 *.js
 node_modules
+dist

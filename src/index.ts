@@ -76,6 +76,8 @@ export default function parse(source: string) {
             name: attrName,
             value: attrValue || null
           })
+
+          return ''
         })
       }
 

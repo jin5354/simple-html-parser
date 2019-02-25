@@ -1,10 +1,11 @@
 {
-  "name": "simple-html-parser",
+  "name": "leaf-simple-html-parser",
   "version": "0.0.1",
   "description": "simple-html-parser",
   "main": "src/index.js",
   "scripts": {
-    "test": "ava test/test.js"
+    "test": "ava test/test.js",
+    "build": "rollup -c"
   },
   "repository": {
     "type": "git",
@@ -17,7 +18,9 @@
   },
   "homepage": "https://github.com/jin5354/simple-html-parser#readme",
   "dependencies": {
-    "@types/node": "^10.12.18"
+    "@types/node": "^10.12.18",
+    "rollup": "^1.2.3",
+    "rollup-plugin-typescript2": "^0.19.2"
   },
   "devDependencies": {
     "ava": "^1.1.0"
