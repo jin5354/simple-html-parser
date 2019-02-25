@@ -1,5 +1,5 @@
 {
-  "name": "leaf-simple-html-parser",
+  "name": "simp-html-parser",
   "version": "0.0.2",
   "description": "simple-html-parser",
   "main": "src/index.js",
