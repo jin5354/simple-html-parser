@@ -8,12 +8,7 @@ export default {
   },
   plugins: [
     typescript({
-      'clean': true,
-      'tsconfigOverride': {
-        compilerOptions: {
-          declaration: true
-        }
-      }
+      'clean': true
     })
   ]
 }
