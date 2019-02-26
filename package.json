@@ -1,6 +1,6 @@
 {
   "name": "simp-html-parser",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "simple-html-parser",
   "main": "dist/index.js",
   "typings": "dist/src/index.d.ts",
