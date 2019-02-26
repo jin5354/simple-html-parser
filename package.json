@@ -1,8 +1,9 @@
 {
   "name": "simp-html-parser",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "simple-html-parser",
-  "main": "dist/index.js",
+  "main": "dist/index",
+  "typings": "dist/index",
   "scripts": {
     "test": "ava test/test.js",
     "build": "rollup -c"
