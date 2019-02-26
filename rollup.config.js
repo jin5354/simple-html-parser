@@ -11,6 +11,7 @@ export default {
       'clean': true,
       'tsconfigOverride': {
         compilerOptions: {
+          module: 'ES2015',
           declaration: true
         }
       }

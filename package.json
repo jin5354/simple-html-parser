@@ -1,12 +1,21 @@
 {
   "name": "simp-html-parser",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "simple-html-parser",
   "main": "dist/index.js",
   "typings": "dist/src/index.d.ts",
   "scripts": {
-    "test": "ava test/test.js",
+    "test": "tsc && ava test/test.js",
     "build": "rollup -c"
+  },
+  "ava": {
+    "compileEnhancements": false,
+    "extensions": [
+      "ts"
+    ],
+    "require": [
+      "ts-node/register"
+    ]
   },
   "repository": {
     "type": "git",
@@ -24,6 +33,6 @@
     "rollup-plugin-typescript2": "^0.19.2"
   },
   "devDependencies": {
-    "ava": "^1.1.0"
+    "ava": "^1.2.1"
   }
 }

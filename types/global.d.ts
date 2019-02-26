@@ -1,6 +1,7 @@
 interface Attr {
   name: string,
-  value: string
+  value: string,
+  wrap?: '"' | "'" | ''
 }
 
 interface RegExpConstructor {

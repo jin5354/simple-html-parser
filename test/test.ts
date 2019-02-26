@@ -1,9 +1,9 @@
 import test from 'ava'
-import parse from '../src/index'
+import parse from '../src/index.js'
 
 test('basic nested', t => {
 
-  let testHTML = `<div id="a" b=c d>
+  let testHTML = `<div id="a" class='item' b=c d>
     <!-- 测试注释节点 -->
     <span>123<<<<</span>6666<<<<<
   </div>`
@@ -14,13 +14,20 @@ test('basic nested', t => {
     tag: 'div',
     attrs: [{
       name: 'id',
-      value: '"a"'
+      value: 'a',
+      wrap: '"'
+    }, {
+      name: 'class',
+      value: 'item',
+      wrap: "'"
     }, {
       name: 'b',
-      value: 'c'
+      value: 'c',
+      wrap: ''
     }, {
       name: 'd',
-      value: null
+      value: null,
+      wrap: ''
     }],
     children: [{
       content: '\n    ',
