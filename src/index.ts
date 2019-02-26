@@ -2,6 +2,8 @@ import {CommentNode} from './CommentNode'
 import {TextNode} from './TextNode'
 import {ElementNode} from './ElementNode'
 
+export {CommentNode, TextNode, ElementNode}
+
 const START_TAG_REG = /^<([^<>\s\/]+)((\s+[^=>\s]+(\s*=\s*((\"[^"]*\")|(\'[^']*\')|[^>\s]+))?)*)\s*\/?\s*>/m
 const END_TAG_REG = /^<\/([^>\s]+)[^>]*>/m
 const ATTRIBUTE_REG = /([^=\s]+)(\s*=\s*((\"([^"]*)\")|(\'([^']*)\')|[^>\s]+))?/gm
