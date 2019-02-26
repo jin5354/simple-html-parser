@@ -73,7 +73,6 @@ export default function parse(source: string) {
       // 抽取 attributes
       if(attrs) {
         attrs.replace(ATTRIBUTE_REG, (a0, a1, a2, a3, a4, a5, a6) => {
-          console.log(a0, a1, a2, a3, a4, a5, a6)
           let attrName = a1
           let attrValue = a3 || null
           if(attrValue && attrValue.startsWith('"') && attrValue.endsWith('"')) {
