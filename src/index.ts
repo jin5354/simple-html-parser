@@ -6,7 +6,7 @@ interface Root {
   children: Vnode[]
 }
 
-class Vnode {
+export class Vnode {
   type
   children
   tag
@@ -28,7 +28,7 @@ class Vnode {
   }
 }
 
-export default function parse(source: string) {
+export default function parse(source: string): Vnode[] {
 
   let result: Root = {
     children: []
