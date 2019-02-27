@@ -1,17 +1,31 @@
-import {CommentNode} from './CommentNode'
-import {TextNode} from './TextNode'
-import {ElementNode} from './ElementNode'
-
-export {CommentNode, TextNode, ElementNode}
-
 const START_TAG_REG = /^<([^<>\s\/]+)((\s+[^=>\s]+(\s*=\s*((\"[^"]*\")|(\'[^']*\')|[^>\s]+))?)*)\s*\/?\s*>/m
 const END_TAG_REG = /^<\/([^>\s]+)[^>]*>/m
 const ATTRIBUTE_REG = /([^=\s]+)(\s*=\s*((\"([^"]*)\")|(\'([^']*)\')|[^>\s]+))?/gm
 
-export type NodeList = (ElementNode|CommentNode|TextNode)[]
-
 interface Root {
-  children: NodeList
+  children: Vnode[]
+}
+
+class Vnode {
+  type
+  children
+  tag
+  text
+  attrs
+
+  constructor(
+    type: 'Element' | 'Text' | 'Comment',
+    children: Vnode[],
+    tag: string,
+    text: string,
+    attrs: {[key: string]: any}
+  ) {
+    this.type = type
+    this.children = children
+    this.tag = tag
+    this.text = text
+    this.attrs = attrs
+  }
 }
 
 export default function parse(source: string) {
@@ -34,7 +48,7 @@ export default function parse(source: string) {
       let endIndex = source.indexOf('-->')
       if(endIndex !== -1) {
         // console.log(`发现注释节点${source.substring(4, endIndex)}`)
-        zone.children.push(new CommentNode(source.substring(4, endIndex)))
+        zone.children.push(new Vnode('Comment', [], '', source.substring(4, endIndex), {}))
         source = source.substring(endIndex + 3)
         continue
       }
@@ -68,7 +82,7 @@ export default function parse(source: string) {
       let result = tag.match(START_TAG_REG)
       let tagName = result[1]
       let attrs = result[2]
-      let attrAry: Attr[] = []
+      let attrMap = {}
 
       // 抽取 attributes
       if(attrs) {
@@ -76,30 +90,18 @@ export default function parse(source: string) {
           let attrName = a1
           let attrValue = a3 || null
           if(attrValue && attrValue.startsWith('"') && attrValue.endsWith('"')) {
-            attrAry.push({
-              name: attrName,
-              value: attrValue.slice(1, attrValue.length - 1),
-              wrap: '"'
-            })
+            attrMap[attrName] = attrValue.slice(1, attrValue.length - 1)
           }else if(attrValue && attrValue.startsWith("'") && attrValue.endsWith("'")) {
-            attrAry.push({
-              name: attrName,
-              value: attrValue.slice(1, attrValue.length - 1),
-              wrap: "'"
-            })
+            attrMap[attrName] = attrValue.slice(1, attrValue.length - 1)
           }else {
-            attrAry.push({
-              name: attrName,
-              value: attrValue,
-              wrap: ''
-            })
+            attrMap[attrName] = attrValue
           }
           return ''
         })
       }
 
       // console.log(`发现元素节点${tag}`)
-      let element = new ElementNode(tagName, attrAry, [])
+      let element = new Vnode('Element', [], tagName, '', attrMap)
       zone.children.push(element)
       // 如果不是自闭合 tag，入栈
       if(!tag.endsWith('/>')) {
@@ -114,17 +116,17 @@ export default function parse(source: string) {
     // console.log('开始识别文字')
     let index = source.indexOf('<', 1)
     if(index == -1) {
-      if(zone.children[zone.children.length - 1] instanceof TextNode) {
-        zone.children[zone.children.length - 1].content += source
+      if(zone.children[zone.children.length - 1] && zone.children[zone.children.length - 1].type === 'Text') {
+        zone.children[zone.children.length - 1].text += source
       }else {
-        zone.children.push(new TextNode(source))
+        zone.children.push(new Vnode('Text', [], '', source, {}))
       }
       source = ''
     }else {
-      if(zone.children[zone.children.length - 1] instanceof TextNode) {
-        zone.children[zone.children.length - 1].content += source.substring(0, index)
+      if(zone.children[zone.children.length - 1] && zone.children[zone.children.length - 1].type === 'Text') {
+        zone.children[zone.children.length - 1].text += source.substring(0, index)
       }else {
-        zone.children.push(new TextNode(source.substring(0, index)))
+        zone.children.push(new Vnode('Text', [], '', source.substring(0, index), {}))
       }
       source = source.substring(index)
     }

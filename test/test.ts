@@ -11,39 +11,52 @@ test('basic nested', t => {
   let ast = parse(testHTML)
 
   let result = [{
-    tag: 'div',
-    attrs: [{
-      name: 'id',
-      value: 'a',
-      wrap: '"'
-    }, {
-      name: 'class',
-      value: 'item',
-      wrap: "'"
-    }, {
-      name: 'b',
-      value: 'c',
-      wrap: ''
-    }, {
-      name: 'd',
-      value: null,
-      wrap: ''
-    }],
+    type: 'Element',
     children: [{
-      content: '\n    ',
+      type: 'Text',
+      children: [],
+      tag: '',
+      text: '\n    ',
+      attrs: {}
     }, {
-      content: ' 测试注释节点 '
+      type: 'Comment',
+      children: [],
+      tag: '',
+      text: ' 测试注释节点 ',
+      attrs: {}
     }, {
-      content: '\n    '
+      type: 'Text',
+      children: [],
+      tag: '',
+      text: '\n    ',
+      attrs: {}
     }, {
-      tag: 'span',
-      attrs: [],
+      type: 'Element',
       children: [{
-        content: '123<<<<',
-      }]
+        type: 'Text',
+        children: [],
+        tag: '',
+        text: '123<<<<',
+        attrs: {}
+      }],
+      tag: 'span',
+      text: '',
+      attrs: {},
     }, {
-      content: '6666<<<<<\n  '
-    }]
+      type: 'Text',
+      children: [],
+      tag: '',
+      text: '6666<<<<<\n  ',
+      attrs: {},
+    }],
+    tag: 'div',
+    text: '',
+    attrs: {
+      id: 'a',
+      class: 'item',
+      b: 'c',
+      d: null
+    }
   }]
   t.deepEqual(JSON.stringify(ast), JSON.stringify(result))
 })
